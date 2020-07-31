@@ -3,7 +3,7 @@ from match import *
 from league import *
 
 region = "kr"
-api_key = "RGAPI-54760c75-01d3-44a0-b229-def53573fa71"
+api_key = "YOUR_API_KEY"
 
 # Examples
 a = SummonerAPI(region, api_key)\
