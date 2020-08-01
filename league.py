@@ -14,12 +14,17 @@ class LeagueAPI:
     # Method 1: Get all league entries 
     def ByEntries(self, queue, tier, division ):
         url = riotAPIurl['LEAGUE']['Entries']
-    
         page = 1
-        
-        formatted_url = url.format(region = self.region, key = self.key, queue = queue, tier = tier, division = division, page = page)
-        data = requestRiot(formatted_url).request()
-        return data
+        dataTotal = []
+        while True:
+            formatted_url = url.format(region = self.region, key = self.key, queue = queue, tier = tier, division = division, page = page)
+            dataPerPage = requestRiot(formatted_url).request()
+            dataTotal = dataTotal + dataPerPage
+            if( len(dataPerPage) == 0 ):
+                break        
+            page += 1
+
+        return dataTotal
 
     # Method 2: Get league entries in all queues for a given summoner ID
     def BySmmnrId(self, smmnrId ):

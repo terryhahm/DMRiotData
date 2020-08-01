@@ -10,6 +10,7 @@ class SummonerAPI:
     def __init__(self, region, key):
         self.region = region
         self.key = key
+        self.returnKey = ['accountId', 'profileIconId', 'revisionDate', 'name', 'id', 'puuid', 'summonerLevel']
 
     # Method 1: Get a summoner by account ID
     def ByAccntID(self, accntId ):
@@ -39,4 +40,6 @@ class SummonerAPI:
         data = requestRiot(formatted_url).request()
         return data
     
+
+
 

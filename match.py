@@ -20,9 +20,11 @@ class MatchAPI:
 
     # Method 2: Get matchlist for games played on given account ID and platform ID 
     #           and filtered using given filter parameters, if any
-    def ByAccountId(self, accntId, option):
+    def ByAccountId(self, accntId):
         url = riotAPIurl['MATCH']['MatchList']
         # get optional query parameter if needed,
+
+
 
         formatted_url = url.format(region = self.region, key = self.key, accountId = accntId)
         data = requestRiot(formatted_url).request()
