@@ -1,25 +1,25 @@
 {
     "SUMMONER": 
     {
-        "AccountId": "https://{region}.api.riotgames.com/lol/summoner/v4/summoners/by-account/{accountId}?api_key={key}",
-        "SummonerName": "https://{region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/{summonerName}?api_key={key}",
-        "PUUID": "https://{region}.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/{puuid}?api_key={key}",
-        "SummonerId": "https://{region}.api.riotgames.com/lol/summoner/v4/summoners/{summonerId}?api_key={key}"
+        "AccountId": "https://{region}.api.riotgames.com/lol/summoner/v4/summoners/by-account/{accountId}?api_key={{key}}",
+        "SummonerName": "https://{region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/{summonerName}?api_key={{key}}",
+        "PUUID": "https://{region}.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/{puuid}?api_key={{key}}",
+        "SummonerId": "https://{region}.api.riotgames.com/lol/summoner/v4/summoners/{summonerId}?api_key={{key}}"
     },
     "LEAGUE":
     {
-        "Entries": "https://{region}.api.riotgames.com/lol/league/v4/entries/{queue}/{tier}/{division}?page={page}&api_key={key}",
-        "SummonerId": "https://{region}.api.riotgames.com/lol/league/v4/entries/by-summoner/{summonerId}?api_key={key}",
-        "LeagueId": "https://{region}.api.riotgames.com/lol/league/v4/leagues/{leagueId}?api_key={key}",
-        "Master": "https://{region}.api.riotgames.com/lol/league/v4/masterleagues/by-queue/{queue}?api_key={key}",
-        "GrandMaster": "https://{region}.api.riotgames.com/lol/league/v4/grandmasterleagues/by-queue/{queue}?api_key={key}",
-        "Challenger": "https://{region}.api.riotgames.com/lol/league/v4/challengerleagues/by-queue/{queue}?api_key={key}"
+        "Entries": "https://{region}.api.riotgames.com/lol/league/v4/entries/{queue}/{tier}/{division}?page={page}&api_key={{key}}",
+        "SummonerId": "https://{region}.api.riotgames.com/lol/league/v4/entries/by-summoner/{summonerId}?api_key={{key}}",
+        "LeagueId": "https://{region}.api.riotgames.com/lol/league/v4/leagues/{leagueId}?api_key={{key}}",
+        "Master": "https://{region}.api.riotgames.com/lol/league/v4/masterleagues/by-queue/{queue}?api_key={{key}}",
+        "Grandmaster": "https://{region}.api.riotgames.com/lol/league/v4/grandmasterleagues/by-queue/{queue}?api_key={{key}}",
+        "Challenger": "https://{region}.api.riotgames.com/lol/league/v4/challengerleagues/by-queue/{queue}?api_key={{key}}"
     },
     "MATCH":
     {
-        "Match": "https://{region}.api.riotgames.com/lol/match/v4/matches/{matchId}?api_key={key}",
-        "MatchList": "https://{region}.api.riotgames.com/lol/match/v4/matchlists/by-account/{accountId}?api_key={key}",
-        "Timeline": "https://{region}.api.riotgames.com/lol/match/v4/timelines/by-match/{matchId}?api_key={key}"
+        "Match": "https://{region}.api.riotgames.com/lol/match/v4/matches/{matchId}?api_key={{key}}",
+        "MatchList": "https://{region}.api.riotgames.com/lol/match/v4/matchlists/by-account/{accountId}?{queryParam}api_key={{key}}",
+        "Timeline": "https://{region}.api.riotgames.com/lol/match/v4/timelines/by-match/{matchId}?api_key={{key}}"
     }
 }
 
