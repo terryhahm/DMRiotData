@@ -1,7 +1,7 @@
 import requests                
 import json
 
-with open('Constant/riotAPIurl.json') as f:
+with open('src/Constant/riotAPIurl.json') as f:
   riotAPIurl = json.load(f)
 
 class LeagueAPI:
@@ -18,6 +18,7 @@ class LeagueAPI:
             if( len(dataPerPage) == 0 ):
                 break        
             page += 1
+            break
 
         return dataTotal
 

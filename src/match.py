@@ -2,7 +2,7 @@ import requests
 import json
 import time
 
-with open('Constant/riotAPIurl.json') as f:
+with open('src/Constant/riotAPIurl.json') as f:
   riotAPIurl = json.load(f)
 
 class MatchAPI:
