@@ -1,15 +1,7 @@
 import json
 import requests
-import pandas as pd
-import numpy as np
 import time
-import os
 
-from summoner import *
-from league import *
-from match import *
-from dictionary import createConstantData
-     
 ## 4. Prepare more than one API Key to handle rate limit exceed exception
 API_KEY_LIST = [
     "RGAPI-2c818ce4-7164-4145-8e6c-66d70a4c148c", 

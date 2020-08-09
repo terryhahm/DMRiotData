@@ -17,7 +17,40 @@ with open('src/Constant/modifiedSpell.json', encoding='UTF8') as f:
     spellDict = json.load(f)
 
 summonerDTOKey = ['accountId', 'profileIconId', 'revisionDate', 'name', 'id', 'puuid', 'summonerLevel', 'keyIdx']
-
+ParticipantTimelineDtoKey = ["creepsPerMinDeltas","xpPerMinDeltas","goldPerMinDeltas","csDiffPerMinDeltas",
+                            "xpDiffPerMinDeltas","damageTakenPerMinDeltas","damageTakenDiffPerMinDeltas"]
+ParticipantStatsDtoKey = [
+    # Info
+    "participantId","win","kills","deaths","assists","champLevel",
+    "item0", "item1", "item2","item3","item4","item5","item6",
+    # Kill
+    "largestMultiKill","largestKillingSpree","killingSprees",
+    "doubleKills","tripleKills","quadraKills","pentaKills","unrealKills",
+    "firstBloodKill","firstBloodAssist",
+    "firstTowerKill","firstTowerAssist","turretKills",
+    "firstInhibitorKill","firstInhibitorAssist","inhibitorKills",
+    "totalMinionsKilled","neutralMinionsKilled","neutralMinionsKilledEnemyJungle","neutralMinionsKilledTeamJungle",
+    # Damage
+    "largestCriticalStrike","damageSelfMitigated",
+    "totalDamageDealt","physicalDamageDealt","magicDamageDealt","trueDamageDealt",
+    "totalDamageDealtToChampions","physicalDamageDealtToChampions","magicDamageDealtToChampions","trueDamageDealtToChampions",
+    "totalDamageTaken","physicalDamageTaken","magicalDamageTaken","trueDamageTaken",
+    "damageDealtToTurrets","damageDealtToObjectives",
+    # Util
+    "totalHeal","totalUnitsHealed",
+    "totalTimeCrowdControlDealt","timeCCingOthers",
+    "goldEarned","goldSpent",
+    "sightWardsBoughtInGame","visionWardsBoughtInGame","visionScore","wardsPlaced","wardsKilled",
+    "longestTimeSpentLiving",
+    # Rune
+    "perk0","perk0Var1","perk0Var2","perk0Var3",
+    "perk1","perk1Var1","perk1Var2","perk1Var3",
+    "perk2","perk2Var1","perk2Var2","perk2Var3",
+    "perk3","perk3Var1","perk3Var2","perk3Var3",
+    "perk4","perk4Var1","perk4Var2","perk4Var3",
+    "perk5","perk5Var1","perk5Var2","perk5Var3",
+    "perkPrimaryStyle","perkSubStyle"
+]
 
 
 class method():
@@ -27,14 +60,15 @@ class method():
         ChallengerDF = pd.DataFrame(columns = summonerDTOKey )
 
         # Get summonerDTO from all entries
-        for entry in ChallengerEntries["entries"]:
+        for i, entry in enumerate(ChallengerEntries["entries"]):
             summoner = SummonerAPI().BySmmnrName( region, entry["summonerName"], riotAPI)
             if( summoner is not None ):
                 summoner["keyIdx"] = riotAPI.getCurKeyIdx()
             if( summoner["accountId"][0] == '-'):
-                summoner["accountId"] = str(summoner["accountId"])
+                summoner["accountId"] = str(summoner["accountId"])        
             ChallengerDF = ChallengerDF.append( summoner, ignore_index=True )
-
+            if( i == 50 ):
+                break
         ChallengerDF.to_csv( 'Data/' + region + '/Challengers.csv', index=False, encoding="utf-8-sig")
 
     def GetGrandmasters(self, region, queue, riotAPI ):
@@ -42,14 +76,15 @@ class method():
         GrandmasterDF = pd.DataFrame(columns = summonerDTOKey )
 
         # Get summonerDTO from all entries
-        for entry in GrandmasterEntries["entries"]:
+        for i, entry in enumerate(GrandmasterEntries["entries"]):
             summoner = SummonerAPI().BySmmnrName( region, entry["summonerName"], riotAPI)
             if( summoner is not None ):
                 summoner["keyIdx"] = riotAPI.getCurKeyIdx()
             if( summoner["accountId"][0] == '-'):
                 summoner["accountId"] = str(summoner["accountId"])
             GrandmasterDF = GrandmasterDF.append( summoner, ignore_index=True )
-
+            if( i == 50 ):
+                break
         GrandmasterDF.to_csv( 'Data/' + region + '/Grandmasters.csv', index=False, encoding="utf-8-sig")
 
     def GetMasters(self, region, queue, riotAPI ):
@@ -57,14 +92,15 @@ class method():
         MasterDF = pd.DataFrame(columns = summonerDTOKey )
 
         # Get summonerDTO from all entries
-        for entry in MasterEntries["entries"]:
+        for i, entry in enumerate(MasterEntries["entries"]):
             summoner = SummonerAPI().BySmmnrName( region, entry["summonerName"], riotAPI)
             if( summoner is not None ):
                 summoner["keyIdx"] = riotAPI.getCurKeyIdx()
             if( summoner["accountId"][0] == '-'):
                 summoner["accountId"] = str(summoner["accountId"])
             MasterDF = MasterDF.append( summoner, ignore_index=True )
-
+            if( i == 50 ):
+                break
         MasterDF.to_csv( 'Data/' + region + '/Masters.csv', index=False, encoding="utf-8-sig")
 
     def GetPlayers(self, region, queue, tier, division, riotAPI ):
@@ -78,9 +114,9 @@ class method():
                 summoner["keyIdx"] = riotAPI.getCurKeyIdx()
             if( summoner["accountId"][0] == '-'):
                 summoner["accountId"] = str(summoner["accountId"])
-
             PlayerDF = PlayerDF.append( summoner, ignore_index=True )
-
+            if( i == 50 ):
+                break
         PlayerDF.to_csv( 'Data/' + region + '/' + tier + '_' + division + '.csv', index=False, encoding="utf-8-sig")
 
 
@@ -97,12 +133,12 @@ class method():
         matchListByPlayer = [MatchAPI().ByAccountId( region, accountId, keyIdx, week, riotAPI) for (accountId, keyIdx) in zip(userList['accountId'], userList['keyIdx']) ]
 
         matchDict = {}
-
         for playerList in matchListByPlayer:
             for match in playerList: 
                 if( match is not None):
                     matchDict[ match["gameId"] ] = True
-
+                if( len(matchDict.keys()) == 50):
+                    break
         matchDF = pd.DataFrame( matchDict.keys(), columns = ["gameId"] )
         matchDF.to_csv( writeFilePath, index=False, encoding="utf-8-sig")
 
@@ -148,10 +184,7 @@ class method():
 
 
     def ParseParticipantTimeline(self, param, data ):
-        colNames = ["creepsPerMinDeltas","xpPerMinDeltas","goldPerMinDeltas","csDiffPerMinDeltas",
-                "xpDiffPerMinDeltas","damageTakenPerMinDeltas","damageTakenDiffPerMinDeltas"]
-
-        for col in colNames:
+        for col in ParticipantTimelineDtoKey:
             for i in range(0, len( data["creepsPerMinDeltas"] )):
                 i = i * 10
                 key = [ match for match in data[col].keys() if match.startswith(str(i)) ]
@@ -160,7 +193,7 @@ class method():
     def GetMatchInfo(self, region, gameId, riotAPI, maxTrial = 3):
         matchInfo = MatchAPI().MatchInfo(region, gameId, riotAPI)
 
-        matchInfoPlayerDF = pd.DataFrame(columns = usingColNames)
+        matchInfoPlayerDF = pd.DataFrame(columns = ParticipantStatsDtoKey)
         matchInfoTeamDF = pd.DataFrame()
 
         player = {}
@@ -181,7 +214,7 @@ class method():
             player["role"] = info["timeline"]["role"] 
             player["lane"] = info["timeline"]["lane"] 
 
-            np.vectorize( self.ParseParticipantStat ) ( player, info, [key for key in usingColNames])
+            np.vectorize( self.ParseParticipantStat ) ( player, info, [key for key in ParticipantStatsDtoKey])
             self.ParseParticipantTimeline(player, info["timeline"] )
 
             matchInfoPlayerDF = matchInfoPlayerDF.append( player, ignore_index=True )

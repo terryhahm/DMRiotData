@@ -4,6 +4,12 @@ REGIONS = [ "ru", "br1", "eun1", "euw1", "jp1", "kr", "la1", "la2", "na1", "oc1"
 
 riotAPI = riotAPI()
 
+
+queue = "RANKED_SOLO_5x5"
+tier = "Challengers"
+division = None
+
+
 for region in REGIONS:
     method().GetChallengers(region, "RANKED_SOLO_5x5", riotAPI)
     method().GetMatchIdListByTier(region, "Challengers", None , 4, riotAPI)
